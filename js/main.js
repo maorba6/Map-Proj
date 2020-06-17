@@ -12,18 +12,31 @@ window.onload = () => {
 }
 
 function moveToMyLocation() {
+
     locService.getPosition()
         .then(pos => {
+
             mapService.panTo(pos.coords.latitude, pos.coords.longitude)
             console.log('User position is:', pos.coords.latitude, pos.coords.longitude);
+            var lan = pos.coords.latitude;
+            var lon = pos.coords.longitude;
+            return axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lan}&lon=${lon}&units=metric&APPID=44cff25b0576bac36050dceb212986e1`)
+                .then(res => {
+                    var currLocation = document.querySelector('.curr-location');
+                    currLocation.innerText = `Location : ${res.data.name} , Temp : ${res.data.main.temp}`
+                })
         })
         .catch(err => {
             console.log('err!!!', err);
         })
+
 }
 
-document.querySelector('.btn-my-location').addEventListener('click', moveToMyLocation)
+document.querySelector('.btn-my-location').addEventListener('click', () => {
 
+    moveToMyLocation()
+
+})
 
 document.querySelector('.btn-go').addEventListener('click', () => {
     getLocation()
@@ -36,13 +49,47 @@ document.querySelector('.btn-go').addEventListener('click', () => {
 })
 
 
+
+
+
+
+
+
+
+
+document.querySelector('.copy').addEventListener('click', () => {
+
+    var lat = document.querySelector('.lat').innerText
+    var lng = document.querySelector('.lng').innerText
+    const myUrl = new URL(`https://maorba6.github.io/Map-Proj/index.html`);
+    myUrl.searchParams.append('lat', `${lat}`)
+    myUrl.searchParams.append('lng', `${lng}`)
+
+    console.log(lat, lng);
+    console.log(myUrl);
+
+
+})
+
+var url = window.location.search;
+console.log(url, 'ur;');
+
+
+
+
 function getLocation() {
     var locationName = getInput()
     console.log(locationName)
     var prm = locService.getAPI(locationName) //getAPI(locationName)
     console.log(prm)
-    prm.then(location => mapService.moveLocation(location.results[0].geometry.location))
+    return prm.then(location => {
+        document.querySelector('.lat').innerText = location.results[0].geometry.location.lat
+        document.querySelector('.lng').innerText = location.results[0].geometry.location.lng
+        mapService.moveLocation(location.results[0].geometry.location)
+    })
 }
+
+
 
 function getInput() {
     return document.querySelector('.location').value
