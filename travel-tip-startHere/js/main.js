@@ -30,9 +30,18 @@ document.querySelector('.btn').addEventListener('click', (ev) => {
 })
 
 
-document.querySelector('form').preventDefault()
+document.querySelector('form').addEventListener('click', () => {
+    event.preventDefault()
+})
 
 document.querySelector('.go').addEventListener('click', () => {
-    console.log('hi');
+
+    var loc = document.querySelector('.loc').value;
+    var prm = locService.changeWeaterBox(loc);
+    prm.then(res => {
+        var currLocation = document.querySelector('.curr-location');
+        currLocation.innerText = `Location : ${loc} , Temp : ${res.main.temp}`
+    })
+
 
 })
