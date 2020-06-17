@@ -23,11 +23,7 @@ function moveToMyLocation() {
 }
 
 document.querySelector('.btn-my-location').addEventListener('click', moveToMyLocation)
-document.querySelector('.btn').addEventListener('click', (ev) => {
-    console.log('Aha!', ev.target);
-    mapService.panTo(55.046051, 75.85); //israel
 
-})
 
 document.querySelector('.btn-go').addEventListener('click', () => {
     getLocation()
