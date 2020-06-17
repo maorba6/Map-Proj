@@ -3,7 +3,6 @@ console.log('Main!');
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 
-
 locService.getLocs()
     .then(locs => console.log('locs', locs))
 
@@ -28,4 +27,12 @@ window.onload = () => {
 document.querySelector('.btn').addEventListener('click', (ev) => {
     console.log('Aha!', ev.target);
     mapService.panTo(35.6895, 139.6917);
+})
+
+
+document.querySelector('form').preventDefault()
+
+document.querySelector('.go').addEventListener('click', () => {
+    console.log('hi');
+
 })
