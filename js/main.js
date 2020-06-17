@@ -1,4 +1,3 @@
-
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 
@@ -23,17 +22,28 @@ function moveToMyLocation() {
         })
 }
 
-document.querySelector('.btn-go').addEventListener('click', getLocation)
 document.querySelector('.btn-my-location').addEventListener('click', moveToMyLocation)
 document.querySelector('.btn').addEventListener('click', (ev) => {
     console.log('Aha!', ev.target);
-    mapService.panTo(55.046051, 75.85);  //israel
+    mapService.panTo(55.046051, 75.85); //israel
+
 })
+
+document.querySelector('.btn-go').addEventListener('click', () => {
+    getLocation()
+    var loc = document.querySelector('.location').value;
+    var prm = locService.changeWeaterBox(loc);
+    prm.then(res => {
+        var currLocation = document.querySelector('.curr-location');
+        currLocation.innerText = `Location : ${loc} , Temp : ${res.main.temp}`
+    })
+})
+
 
 function getLocation() {
     var locationName = getInput()
     console.log(locationName)
-    var prm = locService.getAPI(locationName)        //getAPI(locationName)
+    var prm = locService.getAPI(locationName) //getAPI(locationName)
     console.log(prm)
     prm.then(location => mapService.moveLocation(location.results[0].geometry.location))
 }
@@ -41,11 +51,3 @@ function getLocation() {
 function getInput() {
     return document.querySelector('.location').value
 }
-
-
-
-
-
-
-
-
