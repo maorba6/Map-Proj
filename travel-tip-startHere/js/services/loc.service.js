@@ -22,7 +22,15 @@ function getPosition() {
 }
 
 
+function changeWeaterBox() {
+    var elVal = document.querySelector('.go');
+    console.log(elVal + 'elval');
+
+    var loc = elVal.value;
+    console.log(loc, "loc");
+
+    axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${loc}&APPID=44cff25b0576bac36050dceb212986e1`)
+        .then(res => console.log(res))
 
 
-
-
+}
