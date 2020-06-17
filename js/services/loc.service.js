@@ -1,6 +1,7 @@
 export const locService = {
-    getLocs: getLocs,
-    getPosition: getPosition
+    getLocs,
+    getPosition,
+    getAPI
 }
 var locs = [{ lat: 11.22, lng: 22.11 }]
 
@@ -20,4 +21,11 @@ function getPosition() {
         navigator.geolocation.getCurrentPosition(resolve, reject)
     })
 }
+
+
+function getAPI(location) {
+    var prm = axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyDi1IRiUpFMSYvxgVdafkHSXeCE5e4TfCk`)
+    return prm.then(res => res.data)
+}
+
 
