@@ -1,7 +1,8 @@
 export const locService = {
     getLocs,
     getPosition,
-    changeWeaterBox
+    changeWeaterBox,
+    getAPI
 }
 var locs = [{ lat: 11.22, lng: 22.11 }]
 
@@ -26,4 +27,9 @@ function getPosition() {
 function changeWeaterBox(loc) {
     return axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${loc}&units=metric&APPID=44cff25b0576bac36050dceb212986e1`)
         .then(res => res.data)
+}
+
+function getAPI(location) {
+    var prm = axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyDi1IRiUpFMSYvxgVdafkHSXeCE5e4TfCk`)
+    return prm.then(res => res.data)
 }
