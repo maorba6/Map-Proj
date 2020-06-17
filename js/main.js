@@ -70,9 +70,11 @@ document.querySelector('.copy').addEventListener('click', () => {
 
 
 })
-
-var url = window.location.search;
-console.log(url, 'ur;');
+document.querySelector('body').addEventListener('load', () => {
+    var lat = location.search.split('lat=')[1]
+    var lng = location.search.split('lng=')[1]
+    panTo(lat, lng)
+})
 
 
 
