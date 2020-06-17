@@ -9,7 +9,7 @@ export const mapService = {
 var map;
 
 
-function initMap(lat = 32.0749831, lng = 34.9120554) {
+export function initMap(lat = 32.0749831, lng = 34.9120554) {
     console.log('InitMap');
     return _connectGoogleApi()
         .then(() => {
